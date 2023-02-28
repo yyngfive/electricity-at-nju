@@ -29,6 +29,7 @@ if not context.server_url:
 else:
     proxies = None
     
+    
 payload = {
     'submitDirectEventConfig': '{"config":{"extraParams":{"rid":"'+str(room_id)+'"}}}',
     '__EVENTTARGET': 'ctl04',

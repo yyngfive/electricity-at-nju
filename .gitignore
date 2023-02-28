@@ -129,4 +129,5 @@ dmypy.json
 .pyre/
 
 # 自定义
-main_dev.py
+*_dev.py
+*.xmind
