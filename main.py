@@ -20,16 +20,10 @@ headers = {
     'X-Ext-Net': 'delta=true'
 }
 
-# 因为这个网站是南大校内IP，本地调试时可能需要VPN，如不需要可以设为None
-if not context.server_url:
-    proxies = {
-        'http': 'socks5://127.0.0.1:1080',
-        'https': 'socks5://127.0.0.1:1080'
-    }
-else:
-    proxies = None
-    
-    
+
+# 因为这个网站是南大校内IP，本地调试时可能需要VPN，如不需要可以设为None 
+proxies = {'http': 'socks5://127.0.0.1:1080','https': 'socks5://127.0.0.1:1080'} if not context.server_url else None  
+
 payload = {
     'submitDirectEventConfig': '{"config":{"extraParams":{"rid":"'+str(room_id)+'"}}}',
     '__EVENTTARGET': 'ctl04',
@@ -63,7 +57,12 @@ if int(tm) < 12:
 else:
     time = dt + ' 下午'
 print(f'time:{time}')
-
+row =  base.list_rows('Current')
+if row == []:
+    base.append_row('Current',{'电量':remain})
+else:
+    base.update_row('Current',row[0]['_id'],{'电量':remain})
+print(row)
 for row in base.list_rows('Data'):
     if time == row['时间']:
         old = str(row['电量'])
